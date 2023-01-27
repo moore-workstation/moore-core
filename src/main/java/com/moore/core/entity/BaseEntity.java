@@ -1,4 +1,4 @@
-package com.moore.core;
+package com.moore.core.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
