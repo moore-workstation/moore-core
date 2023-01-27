@@ -98,8 +98,11 @@
             <artifactId>sa-token-spring-boot-starter</artifactId>
             <version>1.33.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>hu.blackbelt.bundles.swagger-parser</groupId>
+            <artifactId>io.swagger.parser</artifactId>
+            <version>1.0.47_1</version>
+        </dependency>
     </dependencies>
 
     <properties>
