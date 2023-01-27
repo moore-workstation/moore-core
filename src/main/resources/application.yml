@@ -1,0 +1,25 @@
+moore-core:
+  aop:
+#    packages: com.moore..*.controller.*Controller.*(..)
+    log-exclude-list: [password,pass]
+    interceptor-path-pattern:
+      - /**
+    exclude-path-pattern:
+      - /test/login
+
+  mail:
+    from: 111
+    to: 11,22
+    cc: 44
+    port: 333
+    user: admin
+    password: 123
+    host: smtp.163.com
+    encoding: UTF-8
+
+spring:
+  mvc:
+    static-path-pattern: /res/**
+
+sa-token:
+  token-name: token
