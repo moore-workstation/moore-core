@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,7 +19,7 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "moore-core.aop")
 public class GlobalSystemProperties {
-    private List<String> logExcludeList;
-    private List<String> interceptorPathPattern;
-    private List<String> excludePathPattern;
+    private List<String> logPrintExcludePattern = Arrays.asList("password","pass");
+    private List<String> interceptorPathPattern = Collections.singletonList("/**");
+    private List<String> excludePathPattern = new ArrayList<>();
 }

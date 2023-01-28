@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -67,10 +66,10 @@ public class ControllerHandler {
             arguments[i] = args[i];
         }
 
-        if (!properties.getLogExcludeList().isEmpty()) {
+        if (!properties.getLogPrintExcludePattern().isEmpty()) {
             //过滤字段 不将字段打印到控制台中
             SimplePropertyPreFilter preFilter = new SimplePropertyPreFilter();
-            preFilter.getExcludes().addAll(properties.getLogExcludeList());
+            preFilter.getExcludes().addAll(properties.getLogPrintExcludePattern());
             log.info("请求参数: {}", JSON.toJSONString(arguments, preFilter));
         } else {
             log.info("请求参数: {}", JSON.toJSONString(arguments));
@@ -83,10 +82,10 @@ public class ControllerHandler {
 
         Object result = proceedingJoinPoint.proceed();
 
-        if (!properties.getLogExcludeList().isEmpty()) {
+        if (!properties.getLogPrintExcludePattern().isEmpty()) {
             //过滤字段 不将字段打印到控制台中
             SimplePropertyPreFilter preFilter = new SimplePropertyPreFilter();
-            preFilter.getExcludes().addAll(properties.getLogExcludeList());
+            preFilter.getExcludes().addAll(properties.getLogPrintExcludePattern());
             log.info("返回结果: {}", JSON.toJSONString(result, preFilter));
         } else {
             log.info("返回结果: {}", JSON.toJSONString(result));
