@@ -1,6 +1,20 @@
+spring:
+  mvc:
+#    静态资源前缀
+    static-path-pattern: /res/**
+    #    时间格式化
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  profiles:
+    active: #
+
+sa-token:
+  token-name: token
+
 moore-core:
   aop:
-#    packages: com.moore..*.controller.*Controller.*(..)
     log-print-exclude-pattern: [password,pass]
     interceptor-path-pattern:
       - /**
@@ -17,9 +31,9 @@ moore-core:
 #    host: smtp.163.com
 #    encoding: UTF-8
 
-#spring:
-#  mvc:
-#    static-path-pattern: /res/**
 
-sa-token:
-  token-name: token
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: info
