@@ -2,12 +2,8 @@ package com.moore.core.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.moore.core.result.Result;
-import com.moore.core.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ：imoore
@@ -35,6 +31,9 @@ public class TestController {
     @GetMapping("login")
     public Result<String> login(@RequestParam("userId")String id,@RequestParam("pass")String pass){
         StpUtil.login(id);
+        log.info(StpUtil.getLoginDevice());
+        log.info("tokeninfo{}",StpUtil.getTokenInfo());
+        log.info(StpUtil.getLoginDevice());
         return Result.data(StpUtil.getTokenValue());
     }
     @GetMapping("logout")
@@ -43,4 +42,5 @@ public class TestController {
         return Result.data("登陆退出");
 
     }
+
 }

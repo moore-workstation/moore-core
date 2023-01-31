@@ -1,7 +1,9 @@
 package com.moore.core.security;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
+import com.moore.core.entity.BaseEntity;
 import com.moore.core.systems.properties.GlobalSystemProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -19,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author ：imoore
@@ -57,6 +61,8 @@ public class ControllerHandler {
 
         Object[] args = joinPoint.getArgs();
         Object[] arguments = new Object[args.length];
+
+        injectEntity(args);
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof ServletRequest
                     || args[i] instanceof ServletResponse
@@ -65,6 +71,7 @@ public class ControllerHandler {
             }
             arguments[i] = args[i];
         }
+        //不齐实体类中默认值
 
         if (!properties.getLogPrintExcludePattern().isEmpty()) {
             //过滤字段 不将字段打印到控制台中
@@ -93,6 +100,36 @@ public class ControllerHandler {
 
         log.info("------------- 结束 耗时：{} ms -------------", System.currentTimeMillis() - startTime);
         return result;
+    }
+
+
+    /**
+     * 通过参数判断是否与当前实体类相关
+     * 如果是相关的实体类，则将ID，时间补齐，存在则不进行修改
+     * @param args
+     */
+    private void injectEntity(Object... args) {
+        if (Objects.isNull(args) || args.length == 0) {
+            return;
+        }
+        for (Object arg : args) {
+            if (arg instanceof BaseEntity) {
+                BaseEntity baseEntity = (BaseEntity) arg;
+                final Integer loginId = Integer.parseInt(StpUtil.getLoginId().toString());
+                if (Objects.isNull(baseEntity.getCreatedId())) {
+                    baseEntity.setCreatedId(loginId == null ? 0 : loginId);
+                }
+                if (Objects.isNull(baseEntity.getModifiedId())) {
+                    baseEntity.setModifiedId(loginId == null ? 0 : loginId);
+                }
+                if (Objects.isNull(baseEntity.getCreatedTime())) {
+                    baseEntity.setCreatedTime(LocalDateTime.now());
+                }
+                if (Objects.isNull(baseEntity.getModifiedTime())) {
+                    baseEntity.setModifiedTime(LocalDateTime.now());
+                }
+            }
+        }
     }
 
 }
