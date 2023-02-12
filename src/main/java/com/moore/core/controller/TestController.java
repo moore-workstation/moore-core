@@ -2,7 +2,9 @@ package com.moore.core.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.moore.core.result.Result;
+import com.moore.core.systems.config.IdGeneratorSnowflake;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/test/")
 public class TestController {
 
+    @Autowired
+    IdGeneratorSnowflake idGeneratorSnowflake;
     @GetMapping("t1")
     public Result test(@RequestParam("id")String id ,@RequestParam("password")String password){
         return Result.data("hello;Id:"+id+"password:"+password);
@@ -30,6 +34,7 @@ public class TestController {
 
     @GetMapping("login")
     public Result<String> login(@RequestParam("userId")String id,@RequestParam("pass")String pass){
+        log.info("snowflake:{}",idGeneratorSnowflake.snowflakeId());
         StpUtil.login(id);
         log.info(StpUtil.getLoginDevice());
         log.info("tokeninfo{}",StpUtil.getTokenInfo());

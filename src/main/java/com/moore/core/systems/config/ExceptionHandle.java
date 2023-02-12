@@ -1,4 +1,4 @@
-package com.moore.core.security;
+package com.moore.core.systems.config;
 
 import cn.dev33.satoken.exception.SaTokenException;
 import com.moore.core.common.CoreErrorType;

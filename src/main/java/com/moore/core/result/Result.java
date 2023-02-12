@@ -28,7 +28,7 @@ public class Result<T> implements Serializable {
     /**
      * 失败
      */
-    private static final Integer FAILURE_CODE = 500;
+    private static final Integer FAILURE_CODE = 400;
     private static final Integer FAILURE_STATE = 500;
     private static final String FAILURE_MESSAGE = "FAIL";
 

@@ -1,4 +1,4 @@
-package com.moore.core.security;
+package com.moore.core.systems.config;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson2.JSON;

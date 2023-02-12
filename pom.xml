@@ -103,6 +103,21 @@
             <artifactId>io.swagger.parser</artifactId>
             <version>1.0.47_1</version>
         </dependency>
+
+        <!--hutool 引入糊涂工具包（图片验证码实现），测试雪花算法-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+            <version>5.7.5</version>
+        </dependency>
+
+        <!--或-->
+        <!--糊涂工具包全家桶 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.5</version>
+        </dependency>
     </dependencies>
 
     <properties>
