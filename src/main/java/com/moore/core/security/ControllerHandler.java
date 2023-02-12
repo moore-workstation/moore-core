@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
 import com.moore.core.entity.BaseEntity;
 import com.moore.core.systems.properties.GlobalSystemProperties;
+import com.moore.core.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -115,12 +116,17 @@ public class ControllerHandler {
         for (Object arg : args) {
             if (arg instanceof BaseEntity) {
                 BaseEntity baseEntity = (BaseEntity) arg;
-                final Integer loginId = Integer.parseInt(StpUtil.getLoginId().toString());
+
+                int loginId = 0;
+                String str = (String) CommonUtils.catchParam(StpUtil::getLoginId);
+                if(Objects.nonNull(str)){
+                    loginId = Integer.parseInt(str);
+                }
                 if (Objects.isNull(baseEntity.getCreatedId())) {
-                    baseEntity.setCreatedId(loginId == null ? 0 : loginId);
+                    baseEntity.setCreatedId(loginId);
                 }
                 if (Objects.isNull(baseEntity.getModifiedId())) {
-                    baseEntity.setModifiedId(loginId == null ? 0 : loginId);
+                    baseEntity.setModifiedId(loginId);
                 }
                 if (Objects.isNull(baseEntity.getCreatedTime())) {
                     baseEntity.setCreatedTime(LocalDateTime.now());

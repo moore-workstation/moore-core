@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * @author ：imoore
@@ -21,6 +22,15 @@ public class CommonUtils {
     public static String currentMethodName() {
 //        1是本方法 2是父方法
         return Thread.currentThread().getStackTrace()[2].getMethodName();
+    }
+
+
+    public static <T> T catchParam(Supplier<T> t){
+        try{
+            return t.get();
+        }catch (Exception e){
+            return null;
+        }
     }
 
 }
