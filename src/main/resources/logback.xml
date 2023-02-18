@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
-
+    <!-- 定义日志文件 输出位置 -->
+    <property name="log.home_dir" value="./logger/"/>
+    <property name="log.app_name" value="core"/>
+    <!-- 日志最大的历史 30天 -->
+    <property name="log.maxHistory" value="30"/>
+    <property name="log.maxSize" value="5MB"/>
+    <!-- 日志界别 -->
+    <property name="log.level" value="info"/>
+    <!-- 打印sql语句 需要指定dao/mapper层包的位置 -->
+<!--    <property name="mapper.package" value="com.moore.core.mapper"/>-->
     <!--ch.qos.logback.core.ConsoleAppender 是 logback 类的完整路径-->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -29,7 +38,7 @@
         <!-- 滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--输出路径-->
-            <fileNamePattern>${user.dir}\logger\core-info.%d.log</fileNamePattern>
+            <fileNamePattern>${log.home_dir}${log.app_name}-info.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
@@ -45,7 +54,7 @@
         </encoder>
         <!-- 滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${user.dir}\logger\core-error.%d.log</fileNamePattern>
+            <fileNamePattern>${log.home_dir}${log.app_name}-error.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <appender name="fileWarnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -60,7 +69,7 @@
         </encoder>
         <!-- 滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${user.dir}\logger\core-warn.%d.log</fileNamePattern>
+            <fileNamePattern>${log.home_dir}${log.app_name}-warn.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
